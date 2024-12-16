@@ -7,7 +7,7 @@ document
         const email = document.getElementById("email").value;
 
         // Reemplaza con la URL de tu Web App de Google Apps Script
-        const url = "https://script.google.com/macros/s/your-script-id/exec";
+        const url = "https://script.google.com/macros/s/AKfycbxTjYMvU5Q9aiRdQUxzLh47wFchgkteefEjeE1ki8Dq7NWeFv6mxesi5f81b3w2Ae2vOw/exec";
 
         const formData = new FormData();
         formData.append("name", name);
