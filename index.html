@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba</title>
+    <title>Formulario de Inscripción</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <p>Esto es una prueba</p>
+    <div class="container">
+        <h1>Inscríbete para empezar el año de la mejor manera posible!</h1>
+        <form id="signup-form">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+
+            <button type="submit">Inscribirse</button>
+        </form>
+        <div id="response-message"></div>
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
