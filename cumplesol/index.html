@@ -354,26 +354,27 @@
 <!-- SCREEN 0: ENVELOPE -->
 <section class="screen active" id="screen-envelope">
   <div class="envelope-wrap">
-    <p class="envelope-label">Para: Sol 🍊</p>
+    <p class="envelope-label">Para mi Sol 🍊☀️</p>
     <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Abrir el sobre">
       <div class="env-letter-peek"></div>
       <div class="env-body"></div>
       <div class="env-flap"></div>
       <div class="env-seal">🧡</div>
     </div>
-    <p class="envelope-hint">Toca el sobre para abrirlo</p>
+    <p class="envelope-hint">♡ Toca el sobre para abrirlo ♡</p>
   </div>
 </section>
 
 <!-- SCREEN 1: LETTER -->
 <section class="screen" id="screen-letter">
   <div class="letter-card">
-    <h1 class="letter-title">¡Feliz Cumpleaños, Sol! 🎂🍊</h1>
+    <h1 class="letter-title">¡Feliz Cumpleaños Mi Amor! 🎂🧡</h1>
     <div class="letter-body">
-      <p>Sé que hoy lo estás celebrando con tu familia allí en Ibiza, pero no quería dejar pasar este día sin prepararte algo para cuando vengan esas vacaciones y por fin estés por aquí por Madrid.</p>
-      <p>Como sé la ilusión que te hacía volver y a mí me hace todavía más ilusión que nos veamos, he preparado un borrador de nuestra primera cita juntos por la ciudad. Pero como quiero que sea 100% a tu gusto, tú tienes la última palabra.</p>
-      <p>Elige tus opciones favoritas abajo y lo dejamos todo reservado para cuando vengas.</p>
-      <p class="letter-sign">Con todo mi cariño, Diego</p>
+      <p>Espero que disfrutes muchísimo tu día con tu familia hoy. No he podido prepararte mucha cosita en el poco tiempo que he tenido desde que empezamos esta bonita relación. Pero no quería dejar pasar este día tan importante sin prepararte algo.</p>
+      <p>Por eso y por que te amo te preparo esta cartita. Y como se la ilusión que nos hace a los dos y las ganas que tenemos de vernos y tener nuestra primera e inolvidable cita para cuando por fin vengan esas vacaciones y estés por aquí por Madrid, he preparado un borrador de nuestra primera cita juntos por la ciudad. Pero como quiero que sea 100% a tu gusto, tú tienes la última palabra 🙈.</p>
+      <p>Tengo de verdad demasiadas ganas de vernos, poder abrazarte, besarte y en general estar a tu lado que no aguanto más para dejar todo planeado ya para cuando estés aquí disfrutar como dos niños pequeños muy enamorados.</p>
+      <p>Te mereces el mundo entero mi amor, por eso quiero que seas tú la que elige tus opciones favoritas y lo dejamos todo reservado para cuando vengas.</p>
+      <p class="letter-sign">Con todo mi cariño y amor, Diego</p>
     </div>
     <div class="letter-cta">
       <button class="btn btn-primary" id="btn-start">Diseñar nuestra cita ✨</button>
@@ -396,11 +397,11 @@
   <div class="step-wrap">
     <div class="step-card">
       <h2 class="step-title">Así queda nuestra cita</h2>
-      <p class="step-sub">Revisa tus elecciones, puedes cambiar cualquier paso antes de guardarla.</p>
+      <p class="step-sub">Revisa tus elecciones, puedes cambiar cualquier paso antes de guardarla. No marcar una opción no significa no hacerla nunca, solo eliges que se hará este bonito día.</p>
       <div class="summary-list" id="summary-list"></div>
       <div style="text-align:center;">
-        <button class="btn btn-primary" id="btn-save">Guardar nuestra cita 🧡</button>
-        <p style="margin-top:14px; font-size:0.85rem; color:var(--text-soft);">Al guardar, el resumen se envía automáticamente.</p>
+        <button class="btn btn-primary" id="btn-save">Guardar nuestra cita ❤︎⁠</button>
+        <p style="margin-top:14px; font-size:0.85rem; color:var(--text-soft);">El formulario es orientativo, si en el momento apetece otra cosa fluiremos según el día.</p>
       </div>
     </div>
   </div>
@@ -409,49 +410,49 @@
 <!-- SCREEN 4: CONFIRMATION -->
 <section class="screen" id="screen-confirm">
   <div class="confirm-card">
-    <div class="confirm-emoji">🎉🍊💛</div>
+    <div class="confirm-emoji">🎉🧡🤎</div>
     <h2 class="confirm-title">¡Plan reservado con éxito!</h2>
-    <p class="confirm-text">Deseando que lleguen esas vacaciones.</p>
-    <p class="confirm-text">Te quiero. Te espero.</p>
+    <p class="confirm-text">Deseando verte y disfrutar de la mejor cita del mundo con la mejor chica del mundo.</p>
+    <p class="confirm-text">Te quiero mucho. Te espero en el aeropuerto 😉.</p>
   </div>
 </section>
 
 <script>
   const steps = [
     {
-      title: "La mañana / el paseo",
+      title: "Primer destino al amanecer",
       sub: "Paso 1 de 5",
       options: [
-        { icon:"🌳", title:"Parque del Retiro", desc:"Paseo tranquilo por el Retiro y el Palacio de Cristal." },
-        { icon:"🏙️", title:"Callejear por el centro", desc:"Gran Vía, Sol y sus rincones, descubriendo sitios." },
-        { icon:"🎁", title:"Sorpréndeme tú", desc:"Tú decides el plan de la mañana." }
+        { icon:"🌳", title:"Paseo por parques", desc:"Paseo tranquilito por algún parque bonito." },
+        { icon:"🏙️", title:"Callejear por el centro", desc:"Gran Vía, Sol y sus rincones." },
+        { icon:"✨", title:"Museos divertidos", desc:"Museo diferente (sentidos, ilusiones, globos...)." }
       ]
     },
     {
       title: "La comida",
       sub: "Paso 2 de 5",
       options: [
-        { icon:"🥘", title:"Tapas con encanto", desc:"Sitiecito tradicional, de esos con mucho sabor." },
+        { icon:"🥘", title:"Bar típico", desc:"Sitiecito tradicional, de tapas o raciones." },
         { icon:"🍜", title:"Cocina internacional", desc:"Asiático, latino, hamburguesería... algo chulo." },
-        { icon:"🧺", title:"Picnic improvisado", desc:"Comida para llevar, si hace buen tiempo." }
+        { icon:"🧺", title:"Take Away", desc:"Comida para llevar y comer paseando o en algún banquito, si hace buen tiempo." }
       ]
     },
     {
-      title: "Tarde de piques y diversión",
+      title: "Tardeo divertido",
       sub: "Paso 3 de 5",
       options: [
-        { icon:"🎳", title:"Bolera + recreativos", desc:"Tarde clásica de bolera y piques." },
-        { icon:"💡", title:"Minigolf con luces", desc:"Minigolf interactivo, música y algo de beber." },
-        { icon:"🔥", title:"Combo total", desc:"Bolera y minigolf, no elegimos." }
+        { icon:"🎳", title:"Bolera/Minigolf + recreativos", desc:"Tarde clásica de recreativos." },
+        { icon:"🛍️", title:"Centro comercial", desc:"Pasear viendo tiendas en un sitio fresquito." },
+        { icon:"🔥", title:"Combo total", desc:"Pasear por un centro comercial y luego tomar algo o ir a los recress." }
       ]
     },
     {
-      title: "El anochecer",
+      title: "El atardecer",
       sub: "Paso 4 de 5",
       options: [
-        { icon:"🌇", title:"Mirador en el coche", desc:"Música, vistas de Madrid y tranquilidad." },
-        { icon:"🌅", title:"Atardecer y cena al aire libre", desc:"Ver caer el sol con algo de cenar." },
-        { icon:"🍹", title:"Sitio recogido", desc:"Tomar algo tranquilamente." }
+        { icon:"🌇", title:"Rooftop/Sky Bar", desc:"Música, vistas de Madrid y tranquilidad." },
+        { icon:"🌅", title:"Atardecer y cena al aire libre", desc:"Ver caer el sol con buenas vistas y algo de cenar o picar tipo picnic." },
+        { icon:"🍹", title:"Sitio recogido", desc:"Tomar algo tranquilamente en algun restaurante." }
       ]
     },
     {
@@ -459,8 +460,8 @@
       sub: "Paso 5 de 5",
       options: [
         { icon:"🛋️", title:"Mantita y peli", desc:"Serie, película y relax en casa." },
-        { icon:"🎲", title:"Jugar y hablar", desc:"Algo juntos, charlando hasta las tantas." },
-        { icon:"💬", title:"Sin prisa", desc:"Simplemente estar tumbados charlando." }
+        { icon:"🎲", title:"Jugar y hablar", desc:"Jugar a algo y charlar." },
+        { icon:"💬", title:"Sin prisa", desc:"Simplemente estar tumbados charlando tranquilos." }
       ]
     }
   ];
