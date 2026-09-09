@@ -608,7 +608,7 @@
     const lines = buildSummaryLines();
     const body = lines.join('\n');
 
-    if(FORMSPREE_ENDPOINT.includes('mdeopvlj')){
+    if(FORMSPREE_ENDPOINT.includes('TU_ID_AQUÍ')){
       // Formspree aún no está configurado: se abre el correo como copia de seguridad.
       window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       return;
