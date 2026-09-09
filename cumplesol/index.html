@@ -618,8 +618,17 @@
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ _subject: subject, mensaje: body })
-    }).catch(() => {
-      // Si falla el envío automático (sin conexión, etc.), copia de seguridad por correo.
+    }).then(response => {
+      if(!response.ok){
+        return response.json().then(data => {
+          console.error('Formspree respondió con error:', response.status, data);
+          window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        });
+      }
+      console.log('Correo enviado correctamente vía Formspree.');
+    }).catch(err => {
+      // Si falla el envío automático (sin conexión, dominio no permitido, etc.), copia de seguridad por correo.
+      console.error('Fallo de red al contactar Formspree:', err);
       window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   }
