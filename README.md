@@ -2,8 +2,12 @@
 
 ## Índice
 
+1. [Direcciones](#direcciones)
+2. [Registro](#registro)
+
 ## Direcciones
 
+- Página principal - https://dmadcham.github.io/
 - Cumple Sol - https://dmadcham.github.io/cumplesol/
 - MineChoto - https://dmadcham.github.io/minechoto/
 
