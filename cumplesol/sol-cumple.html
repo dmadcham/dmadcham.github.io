@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Para Sol 🍊</title>
+<meta name="theme-color" content="#FFF8F0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF8F0;
+    --cream-alt:#FFFCF8;
+    --peach:#F2884F;
+    --peach-light:#F5C79A;
+    --peach-pale:#FBE7D2;
+    --terracotta:#8C5A32;
+    --terracotta-dark:#5C3A20;
+    --text-main:#4A3324;
+    --text-soft:#8C6A52;
+    --shadow: 0 20px 45px -20px rgba(120,70,30,0.35);
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html{
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body{
+    margin:0;
+    min-height:100vh;
+    min-height:100dvh;
+    background: radial-gradient(circle at 12% 8%, var(--peach-pale) 0%, transparent 45%),
+                radial-gradient(circle at 88% 92%, var(--peach-pale) 0%, transparent 50%),
+                var(--cream);
+    color: var(--text-main);
+    font-family:'Quicksand', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.15;
+    margin:0;
+  }
+
+  .screen{
+    min-height:100vh;
+    min-height:100dvh;
+    width:100%;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding: calc(32px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(18px + env(safe-area-inset-left));
+    position:relative;
+  }
+  .screen.active{ display:flex; }
+
+  .decor-orange{
+    position:absolute;
+    border-radius:50%;
+    background: conic-gradient(from 90deg, var(--peach) 0deg 40deg, var(--peach-light) 40deg 80deg, var(--peach) 80deg 120deg, var(--peach-light) 120deg 160deg, var(--peach) 160deg 200deg, var(--peach-light) 200deg 240deg, var(--peach) 240deg 280deg, var(--peach-light) 280deg 320deg, var(--peach) 320deg 360deg);
+    opacity:0.14;
+    filter: blur(0.5px);
+    pointer-events:none;
+  }
+
+  /* ---------- ENVELOPE ---------- */
+  .envelope-wrap{ text-align:center; max-width: 480px; }
+  .envelope-label{
+    font-size: 0.95rem;
+    color: var(--text-soft);
+    margin-bottom: 22px;
+    letter-spacing: 0.2px;
+  }
+  .envelope{
+    position:relative;
+    width: min(78vw, 320px);
+    height: calc(min(78vw, 320px) * 0.66);
+    margin: 0 auto;
+    cursor:pointer;
+    -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
+    border-radius: 18px;
+  }
+  .env-body{
+    position:absolute; inset:0;
+    background: var(--cream-alt);
+    border: 1.5px solid var(--peach-light);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    overflow:hidden;
+    z-index:1;
+  }
+  .env-body::before, .env-body::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    width:0; height:0;
+    border-style:solid;
+  }
+  .env-body::before{
+    left:0;
+    border-width: 0 0 78px 50%;
+    border-color: transparent transparent var(--peach-pale) transparent;
+  }
+  .env-body::after{
+    right:0;
+    border-width: 78px 50% 0 0;
+    border-color: transparent transparent transparent var(--peach-pale);
+  }
+  .env-flap{
+    position:absolute;
+    top:0; left:0; right:0;
+    height: 60%;
+    background: var(--peach);
+    clip-path: polygon(0 0, 100% 0, 50% 78%);
+    transform-origin: top center;
+    transition: transform 0.9s cubic-bezier(.6,-0.28,.4,1.3);
+    z-index:3;
+    border-radius: 18px 18px 0 0;
+  }
+  .envelope.open .env-flap{ transform: rotateX(178deg); }
+  .env-seal{
+    position:absolute;
+    left:50%; top:38%;
+    transform: translate(-50%,-50%);
+    width:58px; height:58px;
+    border-radius:50%;
+    background: var(--terracotta);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:1.5rem;
+    box-shadow: 0 8px 20px -6px rgba(140,90,50,0.6);
+    z-index:4;
+    transition: transform 0.35s ease;
+  }
+  .envelope:hover .env-seal{ transform: translate(-50%,-50%) scale(1.06); }
+  .envelope.open .env-seal{ opacity:0; transform: translate(-50%,-50%) scale(0.4); }
+
+  .env-letter-peek{
+    position:absolute;
+    left:8%; right:8%;
+    bottom:8px;
+    height:70%;
+    background: var(--cream-alt);
+    border-radius: 12px 12px 4px 4px;
+    box-shadow: 0 -6px 16px -8px rgba(140,90,50,0.25);
+    transform: translateY(115%);
+    opacity: 0;
+    transition: transform 0.7s cubic-bezier(.2,.8,.3,1) 0.25s, opacity 0.3s ease 0.25s;
+    z-index:2;
+  }
+  .envelope.open .env-letter-peek{ transform: translateY(-6%); opacity: 1; }
+
+  .envelope-hint{
+    margin-top: 26px;
+    font-size: 0.92rem;
+    color: var(--text-soft);
+  }
+
+  /* ---------- LETTER CARD ---------- */
+  .letter-card{
+    max-width: 620px;
+    width:100%;
+    background: var(--cream-alt);
+    border-radius: 28px;
+    padding: clamp(28px, 5vw, 52px);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--peach-pale);
+    position:relative;
+  }
+  .letter-title{
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: var(--terracotta-dark);
+    margin-bottom: 22px;
+  }
+  .letter-body p{
+    font-size: 1.05rem;
+    line-height:1.75;
+    color: var(--text-main);
+    margin: 0 0 18px;
+  }
+  .letter-sign{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--terracotta);
+    margin-top: 8px;
+  }
+  .letter-cta{ margin-top: 30px; text-align:center; }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    font-family:'Quicksand', sans-serif;
+    font-weight:600;
+    font-size: 1rem;
+    border:none;
+    border-radius: 999px;
+    padding: 14px 30px;
+    cursor:pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+  }
+  .btn-primary{
+    background: var(--peach);
+    color: #6B3A24;
+    box-shadow: 0 10px 24px -10px rgba(140,90,50,0.55);
+  }
+  .btn-primary:hover:not(:disabled){ transform: translateY(-2px); box-shadow: 0 14px 28px -10px rgba(140,90,50,0.65); }
+  .btn-primary:disabled{ opacity:0.45; cursor:not-allowed; box-shadow:none; }
+  .btn-text{
+    background: transparent;
+    color: var(--text-soft);
+    padding: 14px 18px;
+  }
+  .btn-text:hover{ color: var(--terracotta-dark); }
+  .btn:focus-visible, .opt-card:focus-visible, .env-seal:focus-visible{
+    outline: 3px solid var(--terracotta-dark);
+    outline-offset: 3px;
+  }
+
+  /* ---------- STEP FORM ---------- */
+  .step-wrap{ max-width: 640px; width:100%; }
+  .progress-row{
+    display:flex; align-items:center; justify-content:center;
+    gap: 10px; margin-bottom: 30px;
+  }
+  .prog-dot{
+    width: 30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.85rem; font-weight:600;
+    background: var(--cream-alt); color: var(--text-soft);
+    border: 1.5px solid var(--peach-light);
+    transition: all 0.3s ease;
+  }
+  .prog-dot.done{ background: var(--terracotta); border-color: var(--terracotta); color:#fff; }
+  .prog-dot.current{ background: var(--peach); border-color: var(--peach); color:#6B3A24; transform: scale(1.12); }
+  .prog-line{ width: 18px; height:2px; background: var(--peach-light); }
+
+  .step-card{
+    background: var(--cream-alt);
+    border-radius: 26px;
+    padding: clamp(24px, 4vw, 40px);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--peach-pale);
+  }
+  .step-title{
+    font-size: clamp(1.3rem, 3.4vw, 1.7rem);
+    color: var(--terracotta-dark);
+    margin-bottom: 4px;
+  }
+  .step-sub{
+    color: var(--text-soft);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+
+  .opt-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .opt-card{
+    display:flex;
+    align-items:flex-start;
+    gap: 14px;
+    text-align:left;
+    background: var(--cream);
+    border: 1.5px solid var(--peach-pale);
+    border-radius: 18px;
+    padding: 16px 18px;
+    cursor:pointer;
+    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    font-family:'Quicksand', sans-serif;
+  }
+  .opt-card:hover{ transform: translateY(-2px); box-shadow: 0 12px 22px -14px rgba(140,90,50,0.4); }
+  .opt-card.selected{
+    background: var(--peach-pale);
+    border-color: var(--terracotta);
+    box-shadow: 0 10px 22px -12px rgba(140,90,50,0.45);
+  }
+  .opt-icon{ font-size: 1.6rem; line-height:1; margin-top:2px; }
+  .opt-title{ font-weight:700; color: var(--text-main); margin-bottom:3px; font-size: 1.02rem; }
+  .opt-desc{ font-size: 0.9rem; color: var(--text-soft); line-height:1.4; }
+
+  .step-nav{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top: 28px;
+  }
+
+  /* ---------- SUMMARY ---------- */
+  .summary-list{ display:flex; flex-direction:column; gap:12px; margin: 22px 0 30px; }
+  .summary-item{
+    display:flex; justify-content:space-between; align-items:center;
+    gap: 12px;
+    background: var(--cream);
+    border: 1.5px solid var(--peach-pale);
+    border-radius: 16px;
+    padding: 14px 18px;
+  }
+  .summary-item .label{ font-size:0.8rem; color: var(--text-soft); margin-bottom:2px;}
+  .summary-item .value{ font-weight:700; color: var(--text-main); font-size:0.98rem;}
+  .summary-item button{
+    background:none; border:none; color: var(--terracotta-dark);
+    font-family:'Quicksand',sans-serif; font-weight:600; font-size:0.85rem;
+    cursor:pointer; white-space:nowrap;
+  }
+  .summary-item button:hover{ text-decoration: underline; }
+
+  /* ---------- CONFIRMATION ---------- */
+  .confetti-piece{
+    position:fixed; top:0; left:0;
+    font-size: 1.2rem;
+    pointer-events:none;
+    z-index: 60;
+    will-change: transform, opacity;
+  }
+  @keyframes fall{
+    0%{ transform: translate(var(--x0), -10vh) rotate(0deg); opacity:1; }
+    100%{ transform: translate(var(--x1), 110vh) rotate(var(--rot)); opacity:0.9; }
+  }
+
+  .confirm-card{
+    max-width: 480px; width:100%;
+    background: var(--cream-alt);
+    border-radius: 28px;
+    padding: clamp(30px, 6vw, 48px);
+    text-align:center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--peach-pale);
+  }
+  .confirm-emoji{ font-size: 3rem; margin-bottom: 10px; }
+  .confirm-title{ font-size: clamp(1.4rem,4vw,1.8rem); color: var(--terracotta-dark); margin-bottom: 14px; }
+  .confirm-text{ font-size:1.02rem; line-height:1.7; color: var(--text-main); margin-bottom: 8px;}
+
+  @media (min-width: 600px){
+    .opt-grid{ grid-template-columns: 1fr 1fr 1fr; }
+    .opt-card{ flex-direction:column; align-items:flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="decor-orange" style="width:260px;height:260px;top:-90px;left:-90px;"></div>
+<div class="decor-orange" style="width:200px;height:200px;bottom:-70px;right:-70px;"></div>
+
+<!-- SCREEN 0: ENVELOPE -->
+<section class="screen active" id="screen-envelope">
+  <div class="envelope-wrap">
+    <p class="envelope-label">Para: Sol 🍊</p>
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Abrir el sobre">
+      <div class="env-letter-peek"></div>
+      <div class="env-body"></div>
+      <div class="env-flap"></div>
+      <div class="env-seal">🧡</div>
+    </div>
+    <p class="envelope-hint">Toca el sobre para abrirlo</p>
+  </div>
+</section>
+
+<!-- SCREEN 1: LETTER -->
+<section class="screen" id="screen-letter">
+  <div class="letter-card">
+    <h1 class="letter-title">¡Feliz Cumpleaños, Sol! 🎂🍊</h1>
+    <div class="letter-body">
+      <p>Sé que hoy lo estás celebrando con tu familia allí en Ibiza, pero no quería dejar pasar este día sin prepararte algo para cuando vengan esas vacaciones y por fin estés por aquí por Madrid.</p>
+      <p>Como sé la ilusión que te hacía volver y a mí me hace todavía más ilusión que nos veamos, he preparado un borrador de nuestra primera cita juntos por la ciudad. Pero como quiero que sea 100% a tu gusto, tú tienes la última palabra.</p>
+      <p>Elige tus opciones favoritas abajo y lo dejamos todo reservado para cuando vengas.</p>
+      <p class="letter-sign">Con todo mi cariño, Diego</p>
+    </div>
+    <div class="letter-cta">
+      <button class="btn btn-primary" id="btn-start">Diseñar nuestra cita ✨</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCREEN 2: STEP FORM -->
+<section class="screen" id="screen-steps">
+  <div class="step-wrap">
+    <div class="progress-row" id="progress-row"></div>
+    <div class="step-card" id="step-card">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- SCREEN 3: SUMMARY -->
+<section class="screen" id="screen-summary">
+  <div class="step-wrap">
+    <div class="step-card">
+      <h2 class="step-title">Así queda nuestra cita</h2>
+      <p class="step-sub">Revisa tus elecciones, puedes cambiar cualquier paso antes de guardarla.</p>
+      <div class="summary-list" id="summary-list"></div>
+      <div style="text-align:center;">
+        <button class="btn btn-primary" id="btn-save">Guardar nuestra cita 🧡</button>
+        <p style="margin-top:14px; font-size:0.85rem; color:var(--text-soft);">Al guardar, el resumen se envía automáticamente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREEN 4: CONFIRMATION -->
+<section class="screen" id="screen-confirm">
+  <div class="confirm-card">
+    <div class="confirm-emoji">🎉🍊💛</div>
+    <h2 class="confirm-title">¡Plan reservado con éxito!</h2>
+    <p class="confirm-text">Deseando que lleguen esas vacaciones.</p>
+    <p class="confirm-text">Te quiero. Te espero.</p>
+  </div>
+</section>
+
+<script>
+  const steps = [
+    {
+      title: "La mañana / el paseo",
+      sub: "Paso 1 de 5",
+      options: [
+        { icon:"🌳", title:"Parque del Retiro", desc:"Paseo tranquilo por el Retiro y el Palacio de Cristal." },
+        { icon:"🏙️", title:"Callejear por el centro", desc:"Gran Vía, Sol y sus rincones, descubriendo sitios." },
+        { icon:"🎁", title:"Sorpréndeme tú", desc:"Tú decides el plan de la mañana." }
+      ]
+    },
+    {
+      title: "La comida",
+      sub: "Paso 2 de 5",
+      options: [
+        { icon:"🥘", title:"Tapas con encanto", desc:"Sitiecito tradicional, de esos con mucho sabor." },
+        { icon:"🍜", title:"Cocina internacional", desc:"Asiático, latino, hamburguesería... algo chulo." },
+        { icon:"🧺", title:"Picnic improvisado", desc:"Comida para llevar, si hace buen tiempo." }
+      ]
+    },
+    {
+      title: "Tarde de piques y diversión",
+      sub: "Paso 3 de 5",
+      options: [
+        { icon:"🎳", title:"Bolera + recreativos", desc:"Tarde clásica de bolera y piques." },
+        { icon:"💡", title:"Minigolf con luces", desc:"Minigolf interactivo, música y algo de beber." },
+        { icon:"🔥", title:"Combo total", desc:"Bolera y minigolf, no elegimos." }
+      ]
+    },
+    {
+      title: "El anochecer",
+      sub: "Paso 4 de 5",
+      options: [
+        { icon:"🌇", title:"Mirador en el coche", desc:"Música, vistas de Madrid y tranquilidad." },
+        { icon:"🌅", title:"Atardecer y cena al aire libre", desc:"Ver caer el sol con algo de cenar." },
+        { icon:"🍹", title:"Sitio recogido", desc:"Tomar algo tranquilamente." }
+      ]
+    },
+    {
+      title: "El final del día",
+      sub: "Paso 5 de 5",
+      options: [
+        { icon:"🛋️", title:"Mantita y peli", desc:"Serie, película y relax en casa." },
+        { icon:"🎲", title:"Jugar y hablar", desc:"Algo juntos, charlando hasta las tantas." },
+        { icon:"💬", title:"Sin prisa", desc:"Simplemente estar tumbados charlando." }
+      ]
+    }
+  ];
+
+  const state = { current: 0, choices: [null,null,null,null,null] };
+
+  const screens = {
+    envelope: document.getElementById('screen-envelope'),
+    letter: document.getElementById('screen-letter'),
+    steps: document.getElementById('screen-steps'),
+    summary: document.getElementById('screen-summary'),
+    confirm: document.getElementById('screen-confirm'),
+  };
+
+  function showScreen(name){
+    Object.values(screens).forEach(s => s.classList.remove('active'));
+    screens[name].classList.add('active');
+    window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
+  }
+
+  // Envelope open
+  const envelope = document.getElementById('envelope');
+  function openEnvelope(){
+    if(envelope.classList.contains('open')) return;
+    envelope.classList.add('open');
+    setTimeout(() => showScreen('letter'), 900);
+  }
+  envelope.addEventListener('click', openEnvelope);
+  envelope.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openEnvelope(); } });
+
+  document.getElementById('btn-start').addEventListener('click', () => {
+    state.current = 0;
+    renderStep();
+    showScreen('steps');
+  });
+
+  function renderProgress(){
+    const row = document.getElementById('progress-row');
+    row.innerHTML = '';
+    steps.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'prog-dot' + (i < state.current ? ' done' : i === state.current ? ' current' : '');
+      dot.textContent = i + 1;
+      row.appendChild(dot);
+      if(i < steps.length - 1){
+        const line = document.createElement('div');
+        line.className = 'prog-line';
+        row.appendChild(line);
+      }
+    });
+  }
+
+  function renderStep(){
+    renderProgress();
+    const s = steps[state.current];
+    const card = document.getElementById('step-card');
+    card.innerHTML = `
+      <h2 class="step-title">${s.title}</h2>
+      <p class="step-sub">${s.sub}</p>
+      <div class="opt-grid" id="opt-grid"></div>
+      <div class="step-nav">
+        <button class="btn btn-text" id="btn-back">${state.current === 0 ? '' : '← Atrás'}</button>
+        <button class="btn btn-primary" id="btn-next" disabled>${state.current === steps.length - 1 ? 'Ver resumen' : 'Siguiente'}</button>
+      </div>
+    `;
+    const grid = document.getElementById('opt-grid');
+    s.options.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'opt-card' + (state.choices[state.current] === idx ? ' selected' : '');
+      btn.innerHTML = `<span class="opt-icon">${opt.icon}</span><span><span class="opt-title">${opt.title}</span><br><span class="opt-desc">${opt.desc}</span></span>`;
+      btn.addEventListener('click', () => {
+        state.choices[state.current] = idx;
+        renderStep();
+      });
+      grid.appendChild(btn);
+    });
+
+    const nextBtn = document.getElementById('btn-next');
+    nextBtn.disabled = state.choices[state.current] === null;
+    nextBtn.addEventListener('click', () => {
+      if(state.current === steps.length - 1){
+        renderSummary();
+        showScreen('summary');
+      } else {
+        state.current++;
+        renderStep();
+      }
+    });
+
+    const backBtn = document.getElementById('btn-back');
+    if(state.current === 0){
+      backBtn.style.visibility = 'hidden';
+    } else {
+      backBtn.addEventListener('click', () => {
+        state.current--;
+        renderStep();
+      });
+    }
+  }
+
+  function renderSummary(){
+    const list = document.getElementById('summary-list');
+    list.innerHTML = '';
+    steps.forEach((s, i) => {
+      const chosen = s.options[state.choices[i]];
+      const item = document.createElement('div');
+      item.className = 'summary-item';
+      item.innerHTML = `
+        <div>
+          <div class="label">${s.title}</div>
+          <div class="value">${chosen.icon} ${chosen.title}</div>
+        </div>
+        <button type="button">Editar</button>
+      `;
+      item.querySelector('button').addEventListener('click', () => {
+        state.current = i;
+        renderStep();
+        showScreen('steps');
+      });
+      list.appendChild(item);
+    });
+  }
+
+  // Sustituye esta URL por la de tu formulario de Formspree (gratis).
+  // Instrucciones al final de la respuesta del chat.
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/mdeopvlj";
+
+  document.getElementById('btn-save').addEventListener('click', () => {
+    sendSummaryAutomatically();
+    launchConfetti();
+    setTimeout(() => showScreen('confirm'), 300);
+  });
+
+  function buildSummaryLines(){
+    return steps.map((s, i) => {
+      const chosen = s.options[state.choices[i]];
+      return `${s.title} - ${chosen.title}`;
+    });
+  }
+
+  function sendSummaryAutomatically(){
+    const to = 'madronerochamorrod@gmail.com';
+    const subject = 'CITA SOL';
+    const lines = buildSummaryLines();
+    const body = lines.join('\n');
+
+    if(FORMSPREE_ENDPOINT.includes('mdeopvlj')){
+      // Formspree aún no está configurado: se abre el correo como copia de seguridad.
+      window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return;
+    }
+
+    fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ _subject: subject, mensaje: body })
+    }).catch(() => {
+      // Si falla el envío automático (sin conexión, etc.), copia de seguridad por correo.
+      window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  }
+
+  function launchConfetti(){
+    const emojis = ['🧡','🍊','💛','✨','🎉'];
+    const count = 46;
+    for(let i = 0; i < count; i++){
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      const startX = Math.random() * 100;
+      const drift = (Math.random() * 30 - 15);
+      const duration = 2.4 + Math.random() * 1.6;
+      const delay = Math.random() * 0.4;
+      const rot = Math.random() * 360;
+      el.style.left = startX + 'vw';
+      el.style.setProperty('--x0', '0px');
+      el.style.setProperty('--x1', drift + 'vw');
+      el.style.setProperty('--rot', rot + 'deg');
+      el.style.animation = `fall ${duration}s ease-in ${delay}s forwards`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), (duration + delay) * 1000 + 200);
+    }
+  }
+</script>
+</body>
+</html>
